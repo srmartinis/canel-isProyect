@@ -24,6 +24,7 @@ const pages = document.querySelector("#pages")
 const pagesOriginal = pages.value
 const buttonCalcular = document.querySelector("#calcular")
 const buttonAceptar = document.querySelector("#buttonAceptar")
+const buttonReiniciar = document.querySelector("#buttonReiniciar")
 const precioPorPagina = document.querySelector("#precio")
 const home = document.querySelector("#home")
 const infoCuadernillos = document.querySelector("#seccionInfo")
@@ -34,6 +35,7 @@ const pagesFotocopiasOriginal = pagesFotocopias.value
 const buttonCalcularFotocopias = document.querySelector("#calcularFotocopias")
 const infoFotocopias = document.querySelector("#infoFotocopias")
 const buttonAceptarFotocopias = document.querySelector("#buttonAceptarFotocopias")
+const buttonReiniciarFoto = document.querySelector("#buttonReiniciarFoto")
 const info = document.querySelector("#info")
 const seccionInfo = document.querySelector("#seccionInfoGeneral")
 const infoGeneral = document.querySelector("#infoGeneral")
@@ -49,6 +51,8 @@ buttonCalcularFotocopias.addEventListener("click",functionFotocopias)
 info.addEventListener("click",openInfo)
 pages.addEventListener("click",reiniciarMenuCuadernillos)
 pagesFotocopias.addEventListener("click",reiniciarMenuFotocopias)
+buttonReiniciar.addEventListener("click",reiniciarcuadernillos)
+buttonReiniciarFoto.addEventListener("click",reiniciarFotocopias)
 
 //funcionas para mostrar u ocultar secciones
 function menuInicio () {
@@ -70,6 +74,7 @@ function menuInicio () {
     buttonCalcularFotocopias.disabled = false
 
     infoGeneral.innerHTML = ""
+    ocultarButtonReiniciar()
 
 }
 
@@ -91,6 +96,45 @@ function mostrarButtonAceptar() {
 function ocultarButtonAceptar() {
     buttonAceptar.classList.remove("active")
     buttonAceptar.classList.add("inactive")
+}
+
+function mostrarButtonReiniciar() {
+    buttonReiniciar.classList.remove("inactive")
+    buttonReiniciar.classList.add("active")
+}
+
+function ocultarButtonReiniciar() {
+    buttonReiniciar.classList.remove("active")
+    buttonReiniciar.classList.add("inactive")
+}
+
+function reiniciarcuadernillos() {
+    infoCuadernillos.innerHTML=""
+    ocultarButtonAceptar()
+    ocultarButtonReiniciar ()
+    pages.value = pagesOriginal
+    pages.disabled = false
+    buttonCalcular.disabled = false
+}
+
+function mostrarButtonReiniciarFoto() {
+    buttonReiniciarFoto.classList.remove("inactive")
+    buttonReiniciarFoto.classList.add("active")
+}
+
+function ocultarbuttonReiniciarFoto() {
+    buttonReiniciarFoto.classList.remove("active")
+    buttonReiniciarFoto.classList.add("inactive")
+}
+
+function reiniciarFotocopias() {
+    infoFotocopias.innerHTML=""
+    pagesFotocopias.value = pagesFotocopiasOriginal
+    pagesFotocopias.disabled = false
+    buttonCalcularFotocopias.disabled = false
+
+    ocultarButtonAceptarFotocopias ()
+    ocultarbuttonReiniciarFoto()
 }
 
 function mostrarButtonAceptarFotocopias() {
@@ -133,12 +177,6 @@ function agregarP(params) {
     p.textContent = params
     infoGeneral.appendChild(p)
 }
-
-
-
-
-
-
 
 function reiniciarMenuCuadernillos() {
     infoCuadernillos.innerHTML=""
@@ -206,6 +244,7 @@ function manejostock() {
     infoProductLoad.innerText = "CUADERNILLO CARGADO CON EXITO"
     infoCuadernillos.appendChild(infoProductLoad)
     ocultarButtonAceptar ()
+    mostrarButtonReiniciar ()
 
 
     console.log("QUEDAN " + stockHojas + " hojas en Stock")
@@ -268,6 +307,7 @@ function manejostockFotocopias() {
     infoProductLoad.innerText = "FOTOCOPIAS CARGADAS CON EXITO"
     infoFotocopias.appendChild(infoProductLoad)
     ocultarButtonAceptarFotocopias ()
+    mostrarButtonReiniciarFoto ()
 
     console.log("QUEDAN " + stockHojas + " hojas en Stock")
     console.log("QUEDAN " + stockTapas + " tapas en Stock")
