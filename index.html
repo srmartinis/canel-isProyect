@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NL:wght@100..400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Proyect of Canel@is</title>
+</head>
+<body>
+    <div id="title">
+        <div class="home">
+            <li id="home">
+                <a>Home 🌼</a>
+            </li>
+        </div>
+        <div>
+            <h1>CANEL@IS IMPRESIONES</h1>
+        </div>
+    </div>
+    <!-- MENU DE INICIO -->
+    <section class="active" id="menu">
+        <h2 id="subtitle">Selecciona para Empezar Bombon</h2>
+        <ul class="menu-desktop">   
+            <li>
+            <a id="cuadernos">Cuadernillos</a>
+            </li>
+            <li>
+            <a id="fotocopias">Fotocopias</a>
+            </li>
+            <li>
+            <a id="info">Info</a>
+            </li>
+            <li>
+            <a id="stock">Stock</a>
+            </li>
+
+        </ul>
+    </section>
+    <!--MENU DE CUADERNILLOS-->
+    <section class="inactive" id="cuadernillos">
+        <h1>CUADERNILLOS</h1>
+        <label for="pages">Cantidad de Paginas:</label>
+        <input id="pages" type="number" placeholder="CANTIDADA DE PAGINAS" /> 
+    
+        <button id="calcular">Procesar</button>
+    
+        <div id="seccionInfo"></div>
+
+        <button class="inactive active" id="buttonAceptar">Aceptar</button>
+        
+    </section>
+    <section class="inactive" id="seccionFotocopias">
+        <h1>FOTOCOPIAS</h1>
+        <label for="pagesFotocopias">Cantidad de Paginas:</label>
+        <input id="pagesFotocopias" type="number" placeholder="CANTIDAD DE PAGINAS"/>
+    
+        <button id="calcularFotocopias">Procesar</button>
+    
+        <div id="infoFotocopias"></div>
+
+        <button class="inactive active" id="buttonAceptarFotocopias">Aceptar</button>
+    </section>
+    <section class="inactive" id="seccionInfoGeneral">
+        <h1>INFO</h1>
+        <div id="infoGeneral"></div>
+    </section>
+
+    <script src="./javascript.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+
+
+.inactive {
+    display: none;
+}
+
+body {
+     background-color: #5503a4;
+}
+
+#title {
+    font-family: "Playwrite NL", cursive;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home {
+    display: flex; 
+    justify-content: flex-start;
+    position: absolute;
+    left: 0;
+    align-items: center;
+    width: 150px; 
+}
+.home {
+    list-style-type: none;
+}
+#subtitle {
+    font-family: "Playwrite NL", cursive;
+    display: flex;
+    justify-content: center;
+}
+.menu-desktop {
+    display: flex;
+    justify-content: space-around;
+}
+li {
+    font-family: "Playwrite NL", cursive;
+    cursor: pointer;
+    padding-top: 5px;
+    list-style-type: none;
+}
+#info {
+    display: flex;
+    flex-direction: column;
+}
