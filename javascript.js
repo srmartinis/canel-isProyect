@@ -1,5 +1,5 @@
 
-
+let clientes = []
 //STOCK//
 let hojasUsadas = 0
 let costoHojas = 6500/500
@@ -20,7 +20,9 @@ let gananciaFotocopiasTotal = 0
 const cuadernos = document.querySelector("#cuadernos")
 const menu = document.querySelector("#menu")
 const cuadernillos = document.querySelector("#cuadernillos")
+const cargaCuadernillos = document.querySelector("#cargaCuadernillo")
 const pages = document.querySelector("#pages")
+const infoAdicionalCuader = document.querySelector("#infoAdicional")
 const pagesOriginal = pages.value
 const buttonCalcular = document.querySelector("#calcular")
 const buttonAceptar = document.querySelector("#buttonAceptar")
@@ -39,7 +41,21 @@ const buttonReiniciarFoto = document.querySelector("#buttonReiniciarFoto")
 const info = document.querySelector("#info")
 const seccionInfo = document.querySelector("#seccionInfoGeneral")
 const infoGeneral = document.querySelector("#infoGeneral")
-
+const inputCargaCliente = document.getElementById("opcionClient")
+const inputCargaClienteValue = inputCargaCliente.value
+const submitCliente = document.getElementById("submitCliente")
+const opcionCliente = document.getElementById("opcionCliente")
+const nuevoCliente = document.getElementById("nuevoCliente")
+const btnCrearcliente = document.getElementById("btnCrearCliente")
+const nombre = document.getElementById("nombre")
+const apellido = document.getElementById("apellido")
+const cel = document.getElementById("cel")
+const otraInfo = document.getElementById("otraInfo")
+const nombreValue = nombre.value
+const apellidoValue = apellido.value
+const celValue = cel.value
+const otraInfoValue = otraInfo.value
+const menuClientes = document.getElementById(clientes)
 
 let resultado = document.querySelector("#result")
 
@@ -53,6 +69,10 @@ pages.addEventListener("click",reiniciarMenuCuadernillos)
 pagesFotocopias.addEventListener("click",reiniciarMenuFotocopias)
 buttonReiniciar.addEventListener("click",reiniciarcuadernillos)
 buttonReiniciarFoto.addEventListener("click",reiniciarFotocopias)
+submitCliente.addEventListener("click",procesarCliente)
+btnCrearcliente.addEventListener("click",crearClienteNuevo)
+menuClientes.addEventListener("click",openClients)
+
 
 //funcionas para mostrar u ocultar secciones
 function menuInicio () {
@@ -61,8 +81,12 @@ function menuInicio () {
     seccionFotocopias.classList.add("inactive")
     seccionInfo.classList.add("inactive")
 
+    
+
     infoCuadernillos.innerHTML=""
     ocultarButtonAceptar()
+    ocultarSeccion (nuevoCliente)
+    inputCargaCliente.value = inputCargaClienteValue
     pages.value = pagesOriginal
     pages.disabled = false
     buttonCalcular.disabled = false
@@ -79,8 +103,22 @@ function menuInicio () {
 }
 
 function openCuadernillos() {
+    
     menu.classList.toggle("inactive")
     cuadernillos.classList.remove("inactive")
+    cargaCuadernillos.classList.add("inactive")
+    opcionCliente.classList.remove("inactive")
+}
+
+function openCargaCuadernillos() {
+    
+    opcionCliente.classList.add("inactive")
+    cargaCuadernillos.classList.remove("inactive")
+    ocultarSeccion(nuevoCliente)
+    nombre.value = nombreValue
+    apellido.value = apellidoValue
+    cel.value = celValue
+    otraInfo.value = otraInfoValue
 }
 
 function openFotocopias() {
@@ -112,9 +150,13 @@ function reiniciarcuadernillos() {
     infoCuadernillos.innerHTML=""
     ocultarButtonAceptar()
     ocultarButtonReiniciar ()
+    ocultarSeccion (cargaCuadernillos)
+    openSeccion (opcionCliente)
+    inputCargaCliente.value = inputCargaClienteValue
     pages.value = pagesOriginal
     pages.disabled = false
     buttonCalcular.disabled = false
+
 }
 
 function mostrarButtonReiniciarFoto() {
@@ -132,7 +174,7 @@ function reiniciarFotocopias() {
     pagesFotocopias.value = pagesFotocopiasOriginal
     pagesFotocopias.disabled = false
     buttonCalcularFotocopias.disabled = false
-
+    ocultarSeccion (cargaCuadernillos)
     ocultarButtonAceptarFotocopias ()
     ocultarbuttonReiniciarFoto()
 }
@@ -145,6 +187,38 @@ function mostrarButtonAceptarFotocopias() {
 function ocultarButtonAceptarFotocopias() {
     buttonAceptarFotocopias.classList.remove("active")
     buttonAceptarFotocopias.classList.add("inactive")
+}
+
+function ocultarOpcionCliente() {
+    opcionCliente.classList.add("inactive")
+}
+
+function agregarP(params) {
+    const p = document.createElement ("p")
+    p.textContent = params
+    infoGeneral.appendChild(p)
+}
+
+function ocultarSeccion (params){
+    params.classList.add("inactive")
+}
+
+function openSeccion(params) {
+    params.classList.remove("inactive")
+}
+
+function reiniciarMenuCuadernillos() {
+    infoCuadernillos.innerHTML=""
+    ocultarButtonAceptar()
+}
+
+function reiniciarMenuFotocopias() {
+    infoFotocopias.innerHTML=""
+    ocultarButtonAceptarFotocopias ()
+}
+
+function openClients() {
+    //continuar desde aca
 }
 
 function openInfo() {
@@ -172,20 +246,54 @@ function openInfo() {
 
 }
 
-function agregarP(params) {
-    const p = document.createElement ("p")
-    p.textContent = params
-    infoGeneral.appendChild(p)
+function procesarCliente (event) {
+    event.preventDefault ()//evita que se auto envie el formulario
+    const seleccion = inputCargaCliente.value
+    switch (seleccion) {
+        case "Nuevo Cliente":
+        crearCliente ()
+        break;
+        case "Cliente ya Ingresado":
+        cargarCliente ()
+        break;
+        case "Cliente Comun":
+        openCargaCuadernillos()
+        break;
+        default:
+            break;
+    }
 }
 
-function reiniciarMenuCuadernillos() {
-    infoCuadernillos.innerHTML=""
-    ocultarButtonAceptar()
+function crearCliente() {
+    console.log("Crear Cliente");
+    openSeccion (nuevoCliente)
+    ocultarSeccion (opcionCliente)
 }
 
-function reiniciarMenuFotocopias() {
-    infoFotocopias.innerHTML=""
-    ocultarButtonAceptarFotocopias ()
+function crearClienteNuevo() {
+    const userConfirm = confirm("Segura que Deseas Cargar un Cliente Nuevo")
+    if (userConfirm){
+    console.log("casi listo");
+    clientes.push({
+        nombre:nombre.value + " " + apellido.value,
+        info:[({
+            cel:cel.value,
+            otraInfo:infoAdicionalCuader.value,
+        })]
+    })
+    openCargaCuadernillos ()
+    }
+    else {
+        nombre.value = nombreValue
+        apellido.value = apellidoValue
+        cel.value = celValue
+        otraInfo.value = otraInfoValue
+    }
+}
+
+function cargarCliente() {
+    console.log("Cargar Cliente");
+
 }
 
 function calcularPrecioCuadernillo() {

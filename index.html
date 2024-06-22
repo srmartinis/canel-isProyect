@@ -34,6 +34,9 @@
             <a id="info">Info</a>
             </li>
             <li>
+            <a id="clientes">Clientes</a>
+            </li>
+            <li>
             <a id="stock">Stock</a>
             </li>
 
@@ -42,16 +45,44 @@
     <!--MENU DE CUADERNILLOS-->
     <section class="inactive" id="cuadernillos">
         <h1>CUADERNILLOS</h1>
-        <label for="pages">Cantidad de Paginas:</label>
-        <input id="pages" type="number" placeholder="CANTIDADA DE PAGINAS" /> 
-    
-        <button id="calcular">Procesar</button>
-    
-        <div id="seccionInfo"></div>
-
-        <button class="inactive active" id="buttonAceptar">Aceptar</button>
-        <button class="inactive active" id="buttonReiniciar">Agregar Cuadernillo</button>
         
+        <form id="opcionCliente">
+            <h2>CARGA DE CLIENTE</h2>
+            <label for="opcionClient">Elije una Opcion :</label>
+            <input id="opcionClient" list="opciones" placeholder="INGRESE OPCION" name="opcionClient"> 
+                <datalist id="opciones">
+                    <option value="Nuevo Cliente">
+                    <option value="Cliente ya Ingresado">
+                    <option value="Cliente Comun">
+                </datalist>
+                <button id="submitCliente">Enviar</button>
+        </form>
+        <div class="inactive" id="nuevoCliente">
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" type="text" placeholder="Valentina" /> 
+            <label for="apellido">Apellido:</label>
+            <input id="apellido" type="text" placeholder="Saavedra" /> 
+            <label for="cel">Cel:</label>
+            <input id="cel" type="number" placeholder="261 6525040" />
+            <label for="otraInfo">Info:</label>
+            <input id="otraInfo" type="text" placeholder="Info Adicional" /> 
+
+            <button id="btnCrearCliente">Crear Cliente</button>
+        </div>
+        <div class="inactive" id="cargaCuadernillo">
+            <label for="pages">Cantidad de Paginas:</label>
+            <input id="pages" type="number" placeholder="CANTIDADA DE PAGINAS" /> 
+
+            <label for="infoAdicional">Informacion Adicional:</label>
+            <input id="infoAdicional" type="text" placeholder="Cuadernillo de Matematica" /> 
+            
+            <button id="calcular">Procesar</button>
+        
+            <div id="seccionInfo"></div>
+
+            <button class="inactive active" id="buttonAceptar">Aceptar</button>
+            <button class="inactive active" id="buttonReiniciar">Agregar Cuadernillo</button>
+        </div>
     </section>
     <section class="inactive" id="seccionFotocopias">
         <h1>FOTOCOPIAS</h1>
