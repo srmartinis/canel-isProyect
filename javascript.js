@@ -1,6 +1,5 @@
 
-let clientes = []
-//STOCK//
+//STOCkK//
 let hojasUsadas = 0
 let costoHojas = 6500/500
 let costoTapas = (7100/50)
@@ -55,7 +54,16 @@ const nombreValue = nombre.value
 const apellidoValue = apellido.value
 const celValue = cel.value
 const otraInfoValue = otraInfo.value
-const menuClientes = document.getElementById(clientes)
+const menuClientes = document.getElementById("clientes")
+const infoClient = document.getElementById("infoClient")
+const seccionClient = document.getElementById("seccionClient")
+const infodeCliente = document.getElementById('infodeCliente')
+const btnAtrasClient = document.getElementById('btnAtrasClient')
+const cash = document.getElementById('cash')
+const stock = document.getElementById('stock')
+const costos = document.getElementById('costos')
+const masInfo = document.getElementById('masInfo')
+
 
 let resultado = document.querySelector("#result")
 
@@ -73,6 +81,44 @@ submitCliente.addEventListener("click",procesarCliente)
 btnCrearcliente.addEventListener("click",crearClienteNuevo)
 menuClientes.addEventListener("click",openClients)
 
+infoClient.addEventListener('click',(event)=>{
+    openSeccion (infodeCliente)
+    for (let i = 0; i < clientes.length; i++) {
+        const client = clientes[i]
+        if (event.target && event.target.classList.contains ('client'+ i)){
+            console.log(client.nombre);
+            encontrarCliente (client.nombre)
+        }    
+    }
+})
+
+
+function encontrarCliente(nombre) {
+    const elegido = clientes.find(persona => persona.nombre == nombre);
+    const infoSelect = elegido.info
+    mostrarCliente (nombre,infoSelect[0])
+  }
+
+  function mostrarCliente(nombre,params) { 
+        ocultarSeccion (infoClient)
+        const pnom = document.createElement ("p")
+        pnom.textContent = nombre
+        infodeCliente.appendChild(pnom)
+        const pcel = document.createElement ("p")
+        pcel.textContent = params.cel
+        infodeCliente.appendChild(pcel)
+        const pinfo = document.createElement ("p")
+        pinfo.textContent = params.otraInfo
+        infodeCliente.appendChild(pinfo)
+        openSeccion (btnAtrasClient)
+        btnAtrasClient.addEventListener('click',()=>{
+            infodeCliente.innerHTML=""
+            ocultarSeccion (infodeCliente)
+            ocultarSeccion (btnAtrasClient)
+            openSeccion (infoClient)
+        })
+  }
+  
 
 //funcionas para mostrar u ocultar secciones
 function menuInicio () {
@@ -80,8 +126,6 @@ function menuInicio () {
     cuadernillos.classList.add("inactive")
     seccionFotocopias.classList.add("inactive")
     seccionInfo.classList.add("inactive")
-
-    
 
     infoCuadernillos.innerHTML=""
     ocultarButtonAceptar()
@@ -97,9 +141,17 @@ function menuInicio () {
     pagesFotocopias.disabled = false
     buttonCalcularFotocopias.disabled = false
 
-    infoGeneral.innerHTML = ""
+    cash.innerHTML = ""
+    stock.innerHTML = ""
+    costos.innerHTML = ""
+    masInfo.innerHTML = ""
+    
     ocultarButtonReiniciar()
+    ocultarSeccion(seccionClient)
 
+    infodeCliente.innerHTML=""
+    ocultarSeccion (infodeCliente)
+    ocultarSeccion (btnAtrasClient)
 }
 
 function openCuadernillos() {
@@ -192,12 +244,13 @@ function ocultarButtonAceptarFotocopias() {
 function ocultarOpcionCliente() {
     opcionCliente.classList.add("inactive")
 }
-
-function agregarP(params) {
+//modificar DOM
+function agregarP(text,seccion) {
     const p = document.createElement ("p")
-    p.textContent = params
-    infoGeneral.appendChild(p)
+    p.textContent = text
+    seccion.appendChild(p)
 }
+
 
 function ocultarSeccion (params){
     params.classList.add("inactive")
@@ -218,31 +271,38 @@ function reiniciarMenuFotocopias() {
 }
 
 function openClients() {
-    //continuar desde aca
+    ocultarSeccion(menu)
+    openSeccion(seccionClient)
+    openSeccion (infoClient)
+    //borra contenido dentro del din info
+    infoClient.innerHTML = ""
+    cargarCliente()
 }
+
+
 
 function openInfo() {
     menu.classList.toggle("inactive")
     seccionInfo.classList.remove("inactive")
 
-   agregarP ("GANANCIAS " + ganancia)
-   agregarP ("GANANCIAS CON CUADERNILLOS " + gananciaCuadernillosTotal)
-   agregarP ("GANANCIAS CON FOTOCOPIAS " + gananciaFotocopiasTotal)
-   agregarP (".............................................")
-   agregarP ("STOCK")
-   agregarP ("HOJAS RESTANTES " + stockHojas)
-   agregarP ("TAPAS RESTANTES " + stockTapas)
-   agregarP ("ANILLOS RESTANTES " + stockAnillos)
-   agregarP (".............................................")
-   agregarP ("COSTOS ACTUALES")
-   agregarP ("COSTO POR HOJA " + costoHojas)
-   agregarP ("COSTO POR TAPA " + costoTapas)
-   agregarP ("COSTO POR ANILLO " + costoAnillos)
-   agregarP ("COSTO POR ANILLO XL " + costoAnillosXL)
-   agregarP ("COSTO DE TINTA POR HOJA " + costoTinta)
-   agregarP (".............................................")
-   agregarP ("OTRA INFO")
-   agregarP ("CANTIDAD DE HOJAS UTILIZADAS " + hojasUsadas)
+    agregarP ("GANANCIAS " + ganancia,cash)
+    agregarP ("GANANCIAS CON CUADERNILLOS " + gananciaCuadernillosTotal,cash)
+    agregarP ("GANANCIAS CON FOTOCOPIAS " + gananciaFotocopiasTotal,cash)
+    //agregarP (".............................................")
+    agregarP ("STOCK",stock)
+    agregarP ("HOJAS RESTANTES " + stockHojas,stock)
+    agregarP ("TAPAS RESTANTES " + stockTapas,stock)
+    agregarP ("ANILLOS RESTANTES " + stockAnillos,stock)
+   // agregarP (".............................................")
+    agregarP ("COSTOS ACTUALES",costos)
+    agregarP ("COSTO POR HOJA " + costoHojas,costos)
+    agregarP ("COSTO POR TAPA " + costoTapas,costos)
+    agregarP ("COSTO POR ANILLO " + costoAnillos,costos)
+    agregarP ("COSTO POR ANILLO XL " + costoAnillosXL,costos)
+    agregarP ("COSTO DE TINTA POR HOJA " + costoTinta,costos)
+    //agregarP (".............................................")
+    agregarP ("OTRA INFO",masInfo)
+    agregarP ("CANTIDAD DE HOJAS UTILIZADAS " + hojasUsadas,masInfo)
 
 }
 
@@ -292,9 +352,17 @@ function crearClienteNuevo() {
 }
 
 function cargarCliente() {
-    console.log("Cargar Cliente");
-
+    for (let i = 0; i < clientes.length; i++) {
+        const element = clientes[i];
+        const infoCliente = document.createElement('p')
+        infoCliente.classList.add('client'+i)
+        infoCliente.innerText = element.nombre
+        infoClient.appendChild(infoCliente)
+    }
 }
+
+
+    
 
 function calcularPrecioCuadernillo() {
     mostrarButtonAceptar()
